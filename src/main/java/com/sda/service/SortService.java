@@ -4,6 +4,7 @@ import com.sda.model.Advert;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class SortService {
 
     public List<Advert> sortByPriceASC(List<Advert> adverts) {
         return adverts.stream()
-                .sorted()
+                .sorted(Comparator.comparingInt(Advert::getPrice))
                 .collect(Collectors.toList());
     }
 

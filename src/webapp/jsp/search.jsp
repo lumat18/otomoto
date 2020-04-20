@@ -71,6 +71,9 @@
                        style="font-weight: bold; font-size: larger">${advert.price}$</a>
                     <span style="margin-left: 60px;">${advert.date}</span>
                 </p>
+                <div style="margin-right: 10px">
+                    <span style="float: right">Follow <i class="far fa-star"></i></span>
+                </div>
             </div>
         </div>
     </c:forEach>

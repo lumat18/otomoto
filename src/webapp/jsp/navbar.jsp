@@ -23,7 +23,7 @@
                     <a class="nav-link" href="/panel/search">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/panel/followed">Followed</a>
+                    <a class="nav-link" href="/panel/observed">Observed</a>
                 </li>
                 <c:if test="${sessionScope.user.role == 'ADMIN'}">
                     <li class="nav-item">
