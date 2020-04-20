@@ -36,11 +36,11 @@ public class UserService {
     }
 
     public User getUserByLogin(String login) {
-        return userRepository.findByLogin(login);
+        return userRepository.findByLogin(login).get();
     }
 
     public void editUser(EditUserRequest request) {
-        final User user = userRepository.findByLogin(request.getLogin());
+        final User user = userRepository.findByLogin(request.getLogin()).get();
         user.setName(request.getName());
         user.setSurname(request.getSurname());
     }
