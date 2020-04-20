@@ -1,7 +1,5 @@
 package com.sda.controller;
 
-import com.sda.model.User;
-import com.sda.model.UserRole;
 import com.sda.respository.UserRepository;
 
 import javax.servlet.RequestDispatcher;
@@ -18,22 +16,7 @@ public class HomePageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setAdminAccount();
         RequestDispatcher dispatcher = req.getRequestDispatcher("home.jsp");
         dispatcher.forward(req, resp);
-    }
-
-    private void setAdminAccount() {
-        final User admin = User.builder()
-                .name("admin")
-                .surname("admin")
-                .login("admin")
-                .password("admin")
-                .isActive(true)
-                .isBlocked(false)
-                .role(UserRole.ADMIN)
-                .build();
-
-        userRepository.save(admin);
     }
 }

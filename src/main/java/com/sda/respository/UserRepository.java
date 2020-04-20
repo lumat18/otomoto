@@ -1,5 +1,6 @@
 package com.sda.respository;
 
+import com.sda.hibernate.HibernateUtil;
 import com.sda.model.User;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,17 +8,21 @@ import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserRepository {
 
   private static UserRepository userRepository;
+  private SessionFactory sessionFactory;
 
   private List<User> users;
 
   public static UserRepository aUserRepository() {
     if (userRepository == null) {
-      userRepository = new UserRepository(new ArrayList<>());
+      userRepository = new UserRepository(HibernateUtil.getSessionFactory(), new ArrayList<>());
     }
     return userRepository;
   }
@@ -30,6 +35,18 @@ public class UserRepository {
       return false;
     }
     users.add(user);
+
+    Session session = sessionFactory.openSession();
+    try (session) {
+      Transaction transaction = session.beginTransaction();
+      System.out.println("Saving " + user.getLogin() + " to mySQL database");
+      session.persist(user);
+      transaction.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+
     return true;
   }
 
