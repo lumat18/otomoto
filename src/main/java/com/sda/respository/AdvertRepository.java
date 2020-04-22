@@ -1,7 +1,7 @@
 package com.sda.respository;
 
-import com.sda.hibernate.HibernateUtil;
 import com.sda.model.Advert;
+import com.sda.utils.HibernateUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -74,5 +75,22 @@ public class AdvertRepository {
             e.printStackTrace();
         }
         return adverts;
+    }
+
+    public Optional<Advert> findAdvertById(String advertId) {
+        Session session = sessionFactory.openSession();
+        Optional<Advert> advertOptional = Optional.empty();
+        try (session) {
+            Transaction transaction = session.beginTransaction();
+            advertOptional = session.createQuery("from adverts where id = : id")
+                    .setParameter("id", Long.valueOf(advertId))
+                    .getResultList().stream().findFirst();
+            transaction.commit();
+            log.info("Advert found by id: " + advertId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.warn("Advert with id: " + advertId + " not found");
+        }
+        return advertOptional;
     }
 }

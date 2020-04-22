@@ -6,6 +6,7 @@ import com.sda.model.UserRole;
 import com.sda.service.UserService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = createUserFrom(req);
-        boolean created = userService.registerUser(user);
+        boolean created = userService.saveUser(user);
         if (created) {
             req.getRequestDispatcher("home.jsp").forward(req, resp);
         } else {
@@ -45,6 +46,7 @@ public class RegisterController extends HttpServlet {
                 .role(UserRole.USER)
                 .isBlocked(false)
                 .isActive(true)
+                .observed(new ArrayList<>())
                 .build();
     }
 }

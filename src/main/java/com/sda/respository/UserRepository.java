@@ -1,7 +1,8 @@
 package com.sda.respository;
 
-import com.sda.hibernate.HibernateUtil;
+import com.sda.model.Advert;
 import com.sda.model.User;
+import com.sda.utils.HibernateUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -89,14 +90,47 @@ public class UserRepository {
         Optional<User> user = Optional.empty();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            user = (Optional<User>) session.createQuery("from users where login = :login")
-                    .setParameter("login", login)
-                    .getResultList().stream().findFirst();
+            user = searchDataBaseByLogin(session, "users", login);
             transaction.commit();
         } catch (Exception e) {
             log.warn("User not found by login");
             e.printStackTrace();
         }
         return user;
+    }
+
+    public void updateObserved(Long userId, Long advertId) {
+        Session session = sessionFactory.openSession();
+        try (session) {
+            Transaction transaction = session.beginTransaction();
+            final User user = (User) searchDatabaseById(session, "users", userId).get();
+            final Advert advert = (Advert) searchDatabaseById(session, "adverts", advertId).get();
+
+            List<Advert> observedAdverts = user.getObserved();
+            observedAdverts.add(advert);
+            user.setObserved(observedAdverts);
+
+            session.persist(user);
+            transaction.commit();
+
+            log.info("Advert added to observed");
+        } catch (Exception e) {
+            log.warn("Failed to add advert to observed");
+            e.printStackTrace();
+        }
+    }
+
+    private Optional<Object> searchDatabaseById(Session session, String tableName, Long id){
+        return session.createQuery("from " + tableName +
+                " where id = :id")
+                .setParameter("id", id)
+                .getResultList().stream().findFirst();
+    }
+
+    private Optional<User> searchDataBaseByLogin(Session session, String tableName, String login){
+        return (Optional<User>)session.createQuery("from " + tableName +
+                " where login = :id")
+                .setParameter("login", login)
+                .getResultList().stream().findFirst();
     }
 }

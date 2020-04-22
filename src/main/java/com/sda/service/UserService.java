@@ -23,7 +23,7 @@ public class UserService {
         return userService;
     }
 
-    public boolean registerUser(User user) {
+    public boolean saveUser(User user) {
         return userRepository.save(user);
     }
 

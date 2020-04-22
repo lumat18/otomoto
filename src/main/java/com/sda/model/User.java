@@ -23,6 +23,10 @@ public class User {
     private String password;
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
+
     private boolean isBlocked;
     private boolean isActive;
+
+    @ManyToMany(targetEntity = Advert.class)
+    private List<Advert> observed;
 }

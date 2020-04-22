@@ -72,7 +72,9 @@
                     <span style="margin-left: 60px;">${advert.date}</span>
                 </p>
                 <div style="margin-right: 10px">
-                    <span style="float: right">Follow <i class="far fa-star"></i></span>
+                    <a href="/panel/observe?id=${advert.id}">
+                        <span style="float: right">Follow <i class="far fa-star"></i></span>
+                    </a>
                 </div>
             </div>
         </div>

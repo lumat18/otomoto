@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @WebServlet(name = "AddAdvertController", value = "/panel/add")
 public class AddAdvertController extends HttpServlet {
@@ -36,7 +37,7 @@ public class AddAdvertController extends HttpServlet {
         } catch (InvalidInputDataException exception) {
             httpServletRequest.setAttribute("invalidInputDataError", exception.getMessage());
         }
-        boolean created = advertService.postAdvert(advert);
+        boolean created = advertService.saveAdvert(advert);
 
         httpServletRequest.setAttribute("created", created);
 
@@ -54,8 +55,9 @@ public class AddAdvertController extends HttpServlet {
                         .build())
                 .description(req.getParameter("description"))
                 .price(inputValidatingService.validateNumberField(req.getParameter("price")))
-                .userLogin(((User) req.getSession().getAttribute("user")).getLogin())
+                .author(((User) req.getSession().getAttribute("user")))
                 .date(LocalDate.now())
+                .observers(new ArrayList<>())
                 .build();
     }
 }

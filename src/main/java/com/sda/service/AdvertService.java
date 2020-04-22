@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AdvertService {
@@ -19,7 +20,7 @@ public class AdvertService {
         return advertService;
     }
 
-    public boolean postAdvert(Advert advertisement) {
+    public boolean saveAdvert(Advert advertisement) {
         if(advertisement != null){
             return advertRepository.save(advertisement);
         }
@@ -32,5 +33,9 @@ public class AdvertService {
 
     public List<Advert> getUserAdverts(String login) {
         return advertRepository.findAdvertsByLogin(login);
+    }
+
+    public Optional<Advert> getAdvertById(String advertId) {
+        return advertRepository.findAdvertById(advertId);
     }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @Data
@@ -19,8 +20,12 @@ public class Advert {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     private Car car;
-    private String userLogin;
+    @OneToOne
+    private User author;
     private String description;
     private Integer price;
     private LocalDate date;
+
+    @ManyToMany(targetEntity = User.class)
+    private List<User> observers;
 }
