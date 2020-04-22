@@ -1,28 +1,26 @@
 package com.sda.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Builder
-@Getter
+@Data
+@Entity(name = "adverts")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Advert {
-    private final Car car;
-    private final User user;
-    private final String description;
-    private final Integer price;
-    private final LocalDate date = LocalDate.now();
-
-    @Override
-    public String toString() {
-        return "Advertisement{" +
-                "car=" + car +
-                ", user=" + user +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", date=" + date +
-                '}';
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Car car;
+    private String userLogin;
+    private String description;
+    private Integer price;
+    private LocalDate date;
 }

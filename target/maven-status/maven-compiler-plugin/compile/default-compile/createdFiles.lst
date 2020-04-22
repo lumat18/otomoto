@@ -1,4 +1,5 @@
 com\sda\model\User.class
+com\sda\hibernate\HibernateUtil.class
 com\sda\exception\InvalidInputDataException.class
 com\sda\controller\UserEditController.class
 com\sda\service\InputValidatingService.class
