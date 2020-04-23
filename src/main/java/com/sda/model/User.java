@@ -27,6 +27,6 @@ public class User {
     private boolean isBlocked;
     private boolean isActive;
 
-    @ManyToMany(targetEntity = Advert.class)
+    @ManyToMany(targetEntity = Advert.class, fetch = FetchType.EAGER)
     private List<Advert> observed;
 }

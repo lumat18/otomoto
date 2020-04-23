@@ -31,8 +31,8 @@ public class AdvertService {
         return advertRepository.findAll();
     }
 
-    public List<Advert> getUserAdverts(String login) {
-        return advertRepository.findAdvertsByLogin(login);
+    public List<Advert> getUserAdverts(Long userId) {
+        return advertRepository.findAdvertsByLogin(userId);
     }
 
     public Optional<Advert> getAdvertById(String advertId) {

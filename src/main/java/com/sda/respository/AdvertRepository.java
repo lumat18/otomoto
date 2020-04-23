@@ -1,6 +1,7 @@
 package com.sda.respository;
 
 import com.sda.model.Advert;
+import com.sda.model.User;
 import com.sda.utils.HibernateUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -60,13 +61,13 @@ public class AdvertRepository {
         return adverts;
     }
 
-    public List<Advert> findAdvertsByLogin(String login) {
+    public List<Advert> findAdvertsByLogin(Long userId) {
         Session session = sessionFactory.openSession();
         List<Advert> adverts = new ArrayList<>();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            adverts = session.createQuery("from adverts where userLogin = :login")
-                    .setParameter("login", login)
+            adverts = session.createQuery("from adverts where author_id = :authorId")
+                    .setParameter("authorId", userId)
                     .getResultList();
             transaction.commit();
             log.info("Advert list loaded successfully");
@@ -92,5 +93,23 @@ public class AdvertRepository {
             log.warn("Advert with id: " + advertId + " not found");
         }
         return advertOptional;
+    }
+
+    public List<Advert> findObservedByUserId(Long id) {
+        Session session = sessionFactory.openSession();
+        List<Advert> observed = new ArrayList<>();
+        try (session){
+            Transaction transaction = session.beginTransaction();
+            User user = (User) session.createQuery("from users where id = :id")
+                    .setParameter("id", id)
+                    .getResultList().stream().findFirst().get();
+            observed = user.getObserved();
+            transaction.commit();
+            log.info("Observed adverts of user with id=" + id + " loaded successfully");
+        }catch (Exception e){
+            log.warn("Failed to load observed adverts");
+            e.printStackTrace();
+        }
+        return observed;
     }
 }

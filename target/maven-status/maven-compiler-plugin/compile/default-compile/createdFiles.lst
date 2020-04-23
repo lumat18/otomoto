@@ -1,5 +1,4 @@
 com\sda\model\User.class
-com\sda\hibernate\HibernateUtil.class
 com\sda\exception\InvalidInputDataException.class
 com\sda\controller\UserEditController.class
 com\sda\service\InputValidatingService.class
@@ -13,17 +12,21 @@ com\sda\controller\SearchController.class
 com\sda\model\UserRole.class
 com\sda\controller\BlockController.class
 com\sda\controller\LogoutController.class
+com\sda\controller\ObservedAdvertsController.class
 com\sda\controller\UserController.class
 com\sda\model\Car.class
 com\sda\model\Advert.class
 com\sda\service\UserService.class
 com\sda\controller\HomePageController.class
+com\sda\utils\HibernateUtil.class
 com\sda\request\EditUserRequest.class
 com\sda\service\AdvertService.class
+com\sda\controller\ObserveController.class
 com\sda\controller\RegisterController.class
 com\sda\service\SearchService.class
 com\sda\controller\ActivateController.class
 com\sda\respository\AdvertRepository.class
+com\sda\service\ObserveService.class
 com\sda\model\Car$CarBuilder.class
 com\sda\model\Advert$AdvertBuilder.class
 com\sda\controller\SortController.class

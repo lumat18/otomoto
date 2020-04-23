@@ -5,6 +5,7 @@ C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\SearchCon
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\HomePageController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\MyAdvertsController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\model\Car.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\ObserveService.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\UserService.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\LogoutController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\SortController.java
@@ -13,15 +14,17 @@ C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\ActivateC
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\BlockController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\filter\AuthenticationFilter.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\respository\AdvertRepository.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\utils\HibernateUtil.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\SortService.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\RegisterController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\SearchService.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\LoginController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\AddAdvertController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\UserController.java
-C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\hibernate\HibernateUtil.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\respository\UserRepository.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\model\Advert.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\InputValidatingService.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\ObservedAdvertsController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\model\UserRole.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\ObserveController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\request\EditUserRequest.java
