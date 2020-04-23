@@ -21,5 +21,6 @@ public class ObserveController extends HttpServlet {
         final User user = (User) httpServletRequest.getSession().getAttribute("user");
 
         observeService.observeAdvert(user.getId(), Long.parseLong(advertId));
+        httpServletResponse.sendRedirect("/panel/search");
     }
 }

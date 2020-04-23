@@ -129,7 +129,7 @@ public class UserRepository {
 
     private Optional<User> searchDataBaseByLogin(Session session, String tableName, String login){
         return (Optional<User>)session.createQuery("from " + tableName +
-                " where login = :id")
+                " where login = :login")
                 .setParameter("login", login)
                 .getResultList().stream().findFirst();
     }
