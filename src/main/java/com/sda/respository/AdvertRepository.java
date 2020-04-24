@@ -66,7 +66,7 @@ public class AdvertRepository {
         List<Advert> adverts = new ArrayList<>();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            adverts = session.createQuery("from adverts where author_id = :authorId")
+            adverts = session.createQuery("from adverts where author.id = :authorId")
                     .setParameter("authorId", userId)
                     .getResultList();
             transaction.commit();
@@ -100,10 +100,9 @@ public class AdvertRepository {
         List<Advert> observed = new ArrayList<>();
         try (session){
             Transaction transaction = session.beginTransaction();
-            User user = (User) session.createQuery("from users where id = :id")
+            observed = (List<Advert>) session.createQuery("select u.observed from users u where u.id = :id")
                     .setParameter("id", id)
-                    .getResultList().stream().findFirst().get();
-            observed = user.getObserved();
+                    .getResultList();
             transaction.commit();
             log.info("Observed adverts of user with id=" + id + " loaded successfully");
         }catch (Exception e){

@@ -20,12 +20,12 @@ public class Advert {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     private Car car;
-    @OneToOne
+    @ManyToOne(targetEntity = User.class)
     private User author;
     private String description;
     private Integer price;
     private LocalDate date;
 
-    @ManyToMany(targetEntity = User.class)
+    @ManyToMany(mappedBy = "observed")
     private List<User> observers;
 }
