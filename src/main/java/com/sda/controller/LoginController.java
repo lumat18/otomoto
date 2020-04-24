@@ -30,14 +30,14 @@ public class LoginController extends HttpServlet {
     if (user.isPresent()) {
       if(user.get().isBlocked()){
         req.setAttribute("errorLogin", "User is blocked");
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/login.jsp").forward(req, resp);
       }else{
         HttpSession session = req.getSession();
         session.setAttribute("user", user.get());
       }
     } else {
       req.setAttribute("errorLogin", "Invalid login or password");
-      req.getRequestDispatcher("login.jsp").forward(req, resp);
+      req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
     resp.sendRedirect("/");
   }

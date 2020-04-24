@@ -3,7 +3,9 @@ package com.sda.controller;
 
 import com.sda.model.User;
 import com.sda.model.UserRole;
+import com.sda.service.MailSender;
 import com.sda.service.UserService;
+import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterController extends HttpServlet {
 
     private UserService userService = UserService.aUserService();
+    private MailSender mailSender = MailSender.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,6 +33,12 @@ public class RegisterController extends HttpServlet {
         User user = createUserFrom(req);
         boolean created = userService.saveUser(user);
         if (created) {
+            try {
+                mailSender.sendMail("lumat@op.pl");
+            } catch (Exception e) {
+                System.out.println("ERROR SENDING EMAIL");
+                e.printStackTrace();
+            }
             req.getRequestDispatcher("home.jsp").forward(req, resp);
         } else {
             req.setAttribute("loginExists", user.getLogin());
