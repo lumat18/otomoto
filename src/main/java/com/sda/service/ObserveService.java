@@ -7,6 +7,7 @@ import com.sda.respository.UserRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,12 @@ public class ObserveService {
 
     public void notObserveAdvert(Long userId, Long advertId) {
         userRepository.updateRemoveObserved(userId, advertId);
+    }
+
+    public List<AdvertDTO> getUserObservedAdvertDTOs(Long id) {
+        List<AdvertDTO> advertDTOs = new ArrayList<>();
+        getUserObservedAdverts(id).forEach(advert -> advertDTOs.add(new AdvertDTO(advert, false)));
+        return advertDTOs;
     }
 
     public List<Advert> getUserObservedAdverts(Long id) {

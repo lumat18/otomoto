@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.dto.AdvertDTO;
 import com.sda.model.Advert;
 import com.sda.model.User;
 import com.sda.service.ObserveService;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class ObservedAdvertsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        final User user = (User) httpServletRequest.getSession().getAttribute("user");
-        final List<Advert> observedAdverts = observeService.getUserObservedAdverts(user.getId());
-        httpServletRequest.setAttribute("observedAdverts", observedAdverts);
+        final HttpSession session = httpServletRequest.getSession();
+        final User user = (User) session.getAttribute("user");
+        final List<AdvertDTO> observedAdvertDTOs = observeService.getUserObservedAdvertDTOs(user.getId());
+        observeService.markObservedByUser(observedAdvertDTOs, user.getId());
+        httpServletRequest.setAttribute("observedAdvertDTOs", observedAdvertDTOs);
         final RequestDispatcher requestDispatcher = httpServletRequest.getRequestDispatcher("/observed.jsp");
         requestDispatcher.forward(httpServletRequest, httpServletResponse);
     }
