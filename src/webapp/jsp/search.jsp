@@ -73,14 +73,15 @@
                 </p>
                 <div style="margin-right: 10px">
                     <c:if test="${advertDTO.observed}">
-                        <span style="float: right">Followed <i class="fas fa-star"></i></span>
+                        <a href="/panel/not-observe?id=${advertDTO.advert.id}">
+                            <span style="float: right">Followed <i class="fas fa-star"></i></span>
+                        </a>
                     </c:if>
                     <c:if test="${!advertDTO.observed}">
                         <a href="/panel/observe?id=${advertDTO.advert.id}">
                             <span style="float: right">Follow <i class="far fa-star"></i></span>
                         </a>
                     </c:if>
-
                 </div>
             </div>
         </div>

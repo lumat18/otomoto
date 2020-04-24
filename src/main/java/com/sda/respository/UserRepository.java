@@ -99,7 +99,7 @@ public class UserRepository {
         return user;
     }
 
-    public void updateObserved(Long userId, Long advertId) {
+    public void updateAddObserved(Long userId, Long advertId) {
         Session session = sessionFactory.openSession();
         try (session) {
             Transaction transaction = session.beginTransaction();
@@ -132,5 +132,26 @@ public class UserRepository {
                 " where login = :login")
                 .setParameter("login", login)
                 .getResultList().stream().findFirst();
+    }
+
+    public void updateRemoveObserved(Long userId, Long advertId) {
+        Session session = sessionFactory.openSession();
+        try (session) {
+            Transaction transaction = session.beginTransaction();
+            final User user = (User) searchDatabaseById(session, "users", userId).get();
+            final Advert advert = (Advert) searchDatabaseById(session, "adverts", advertId).get();
+
+            List<Advert> observedAdverts = user.getObserved();
+            observedAdverts.remove(advert);
+            user.setObserved(observedAdverts);
+
+            session.persist(user);
+            transaction.commit();
+
+            log.info("Advert removed from observed");
+        } catch (Exception e) {
+            log.warn("Failed to remove advert from observed");
+            e.printStackTrace();
+        }
     }
 }

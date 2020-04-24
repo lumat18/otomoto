@@ -17,6 +17,18 @@
                        style="font-weight: bold; font-size: larger">${advert.price}$</a>
                     <span style="margin-left: 60px;">${advert.date}</span>
                 </p>
+                <div style="margin-right: 10px">
+                    <c:if test="${advertDTO.observed}">
+                        <a href="/panel/not-observe?id=${advertDTO.advert.id}">
+                            <span style="float: right">Followed <i class="fas fa-star"></i></span>
+                        </a>
+                    </c:if>
+                    <c:if test="${!advertDTO.observed}">
+                        <a href="/panel/observe?id=${advertDTO.advert.id}">
+                            <span style="float: right">Follow <i class="far fa-star"></i></span>
+                        </a>
+                    </c:if>
+                </div>
             </div>
         </div>
     </c:forEach>
