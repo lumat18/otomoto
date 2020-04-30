@@ -2,6 +2,7 @@ package com.sda.respository;
 
 import com.sda.model.Advert;
 import com.sda.model.User;
+import com.sda.service.AdvertService;
 import com.sda.utils.HibernateUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,35 +20,38 @@ import java.util.Optional;
 public class UserRepository {
 
     private static UserRepository userRepository;
+    private AdvertService advertService;
     private SessionFactory sessionFactory;
 
 
     public static UserRepository aUserRepository() {
         if (userRepository == null) {
-            userRepository = new UserRepository(HibernateUtil.getSessionFactory());
+            userRepository = new UserRepository(
+                    AdvertService.aAdvertService(),
+                    HibernateUtil.getSessionFactory());
         }
         return userRepository;
     }
 
     public boolean save(User user) {
         Optional<User> existingUser = findByLogin(user.getLogin());
-        if (doesUserExistInDatabase(user)) {
+        if (userExists(user)) {
             return false;
         }
 
         Session session = sessionFactory.openSession();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            log.info("Saving " + user.getLogin() + " to database");
             session.persist(user);
             transaction.commit();
+            log.info("Saving " + user.getLogin() + " to database");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
     }
 
-    private boolean doesUserExistInDatabase(User user) {
+    private boolean userExists(User user) {
         Optional<User> existingUser = findByLogin(user.getLogin());
         return existingUser.isPresent();
     }
@@ -67,16 +71,13 @@ public class UserRepository {
         return users;
     }
 
-    public Optional<User> findBy(String login, String password) {
+    public Optional<User> findByLoginAndPassword(String login, String password) {
         Session session = sessionFactory.openSession();
         Optional<User> user = Optional.empty();
         try (session) {
             Transaction transaction = session.beginTransaction();
             log.info("User " + login + " found");
-            user = (Optional<User>) session.createQuery("from users where login = :login and password = :password")
-                    .setParameter("login", login)
-                    .setParameter("password", password)
-                    .getResultList().stream().findFirst();
+            user = searchDatabaseByLoginAndPassword(session, login, password);
             transaction.commit();
         } catch (Exception e) {
             log.warn("User not found by login and password");
@@ -85,12 +86,19 @@ public class UserRepository {
         return user;
     }
 
+    private Optional<User> searchDatabaseByLoginAndPassword(Session session, String login, String password){
+        return session.createQuery("from users where login = :login and password = :password")
+                .setParameter("login", login)
+                .setParameter("password", password)
+                .getResultList().stream().findFirst();
+    }
+
     public Optional<User> findByLogin(String login) {
         Session session = sessionFactory.openSession();
         Optional<User> user = Optional.empty();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            user = searchDataBaseByLogin(session, "users", login);
+            user = searchDataBaseByLogin(session, login);
             transaction.commit();
         } catch (Exception e) {
             log.warn("User not found by login");
@@ -99,12 +107,19 @@ public class UserRepository {
         return user;
     }
 
+    private Optional<User> searchDataBaseByLogin(Session session, String login){
+        return session.createQuery("from users" +
+                " where login = :login")
+                .setParameter("login", login)
+                .getResultList().stream().findFirst();
+    }
+
     public void updateAddObserved(Long userId, Long advertId) {
         Session session = sessionFactory.openSession();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            final User user = (User) searchDatabaseById(session, "users", userId).get();
-            final Advert advert = (Advert) searchDatabaseById(session, "adverts", advertId).get();
+            final User user = (User) searchDatabaseById(session, userId).get();
+            final Advert advert = advertService.getAdvertById(advertId).get();
 
             List<Advert> observedAdverts = user.getObserved();
             observedAdverts.add(advert);
@@ -120,17 +135,10 @@ public class UserRepository {
         }
     }
 
-    private Optional<Object> searchDatabaseById(Session session, String tableName, Long id){
-        return session.createQuery("from " + tableName +
+    private Optional<User> searchDatabaseById(Session session, Long id){
+        return session.createQuery("from users" +
                 " where id = :id")
                 .setParameter("id", id)
-                .getResultList().stream().findFirst();
-    }
-
-    private Optional<User> searchDataBaseByLogin(Session session, String tableName, String login){
-        return (Optional<User>)session.createQuery("from " + tableName +
-                " where login = :login")
-                .setParameter("login", login)
                 .getResultList().stream().findFirst();
     }
 
@@ -138,8 +146,8 @@ public class UserRepository {
         Session session = sessionFactory.openSession();
         try (session) {
             Transaction transaction = session.beginTransaction();
-            final User user = (User) searchDatabaseById(session, "users", userId).get();
-            final Advert advert = (Advert) searchDatabaseById(session, "adverts", advertId).get();
+            final User user = (User) searchDatabaseById(session, userId).get();
+            final Advert advert = advertService.getAdvertById(advertId).get();
 
             List<Advert> observedAdverts = user.getObserved();
             observedAdverts.remove(advert);

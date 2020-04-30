@@ -43,7 +43,7 @@ public class AdvertService {
         return advertRepository.findAdvertsByLogin(userId);
     }
 
-    public Optional<Advert> getAdvertById(String advertId) {
+    public Optional<Advert> getAdvertById(Long advertId) {
         return advertRepository.findAdvertById(advertId);
     }
 }

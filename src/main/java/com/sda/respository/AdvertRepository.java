@@ -78,13 +78,13 @@ public class AdvertRepository {
         return adverts;
     }
 
-    public Optional<Advert> findAdvertById(String advertId) {
+    public Optional<Advert> findAdvertById(Long advertId) {
         Session session = sessionFactory.openSession();
         Optional<Advert> advertOptional = Optional.empty();
         try (session) {
             Transaction transaction = session.beginTransaction();
             advertOptional = session.createQuery("from adverts where id = : id")
-                    .setParameter("id", Long.valueOf(advertId))
+                    .setParameter("id", advertId)
                     .getResultList().stream().findFirst();
             transaction.commit();
             log.info("Advert found by id: " + advertId);

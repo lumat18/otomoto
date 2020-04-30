@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public Optional<User> getUserBy(String login, String password) {
-        return userRepository.findBy(login, password);
+        return userRepository.findByLoginAndPassword(login, password);
     }
 
     public List<User> findAll() {

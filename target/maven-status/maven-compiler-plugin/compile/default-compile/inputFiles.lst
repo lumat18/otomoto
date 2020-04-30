@@ -2,6 +2,7 @@ C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\AdvertServic
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\model\User.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\exception\InvalidInputDataException.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\SearchController.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\MailSender.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\HomePageController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\MyAdvertsController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\model\Car.java
@@ -19,6 +20,7 @@ C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\SortService.
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\RegisterController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\service\SearchService.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\LoginController.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\NotObserveController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\AddAdvertController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\UserController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\respository\UserRepository.java
@@ -28,3 +30,4 @@ C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\ObservedA
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\model\UserRole.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\controller\ObserveController.java
 C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\request\EditUserRequest.java
+C:\Users\lumat\Documents\JAVA\otomoto\src\main\java\com\sda\dto\AdvertDTO.java
