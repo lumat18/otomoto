@@ -1,6 +1,7 @@
 package com.sda.service;
 
 import com.sda.model.Advert;
+import com.sda.request.SearchRequest;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
@@ -18,13 +19,13 @@ public class SearchService {
         return searchService;
     }
 
-    public List<Advert> search(List<Advert> adverts, String brand, String model, Integer minYear, Integer maxYear, Integer minMileage, Integer maxMileage) {
-        final List<Advert> filterBrand = filterBrand(adverts, brand);
-        final List<Advert> filterModel = filterModel(filterBrand, model);
-        final List<Advert> filterMaxYear = filterMaxYear(filterModel, maxYear);
-        final List<Advert> filterMinYear = filterMinYear(filterMaxYear, minYear);
-        final List<Advert> filterMaxMileage = filterMaxMileage(filterMinYear, maxMileage);
-        return filterMinMileage(filterMaxMileage, minMileage);
+    public List<Advert> search(List<Advert> adverts, SearchRequest searchRequest) {
+        final List<Advert> filterBrand = filterBrand(adverts, searchRequest.getBrand());
+        final List<Advert> filterModel = filterModel(filterBrand, searchRequest.getModel());
+        final List<Advert> filterMaxYear = filterMaxYear(filterModel, searchRequest.getMaxYear());
+        final List<Advert> filterMinYear = filterMinYear(filterMaxYear, searchRequest.getMinYear());
+        final List<Advert> filterMaxMileage = filterMaxMileage(filterMinYear, searchRequest.getMaxMileage());
+        return filterMinMileage(filterMaxMileage, searchRequest.getMinMileage());
     }
 
     private List<Advert> filterBrand(List<Advert> adverts, String brand) {

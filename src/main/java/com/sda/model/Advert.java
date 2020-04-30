@@ -26,6 +26,6 @@ public class Advert {
     private Integer price;
     private LocalDate date;
 
-    @ManyToMany(mappedBy = "observed")
+    @ManyToMany(mappedBy = "observed", fetch = FetchType.EAGER)
     private List<User> observers;
 }

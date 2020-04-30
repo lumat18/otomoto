@@ -27,9 +27,23 @@ public class User {
     private boolean isBlocked;
     private boolean isActive;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_adverts",
             joinColumns = @JoinColumn(name = "observer_id"),
             inverseJoinColumns = @JoinColumn(name = "advert_id"))
     private List<Advert> observed;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", isBlocked=" + isBlocked +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

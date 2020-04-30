@@ -15,21 +15,21 @@ public class AdvertService {
     private static AdvertService advertService;
     private AdvertRepository advertRepository;
 
-    public static AdvertService aAdvertService(){
-        if(advertService == null){
+    public static AdvertService aAdvertService() {
+        if (advertService == null) {
             advertService = new AdvertService(AdvertRepository.aAdvertRepository());
         }
         return advertService;
     }
 
     public boolean saveAdvert(Advert advertisement) {
-        if(advertisement != null){
+        if (advertisement != null) {
             return advertRepository.save(advertisement);
         }
         return false;
     }
 
-    public List<AdvertDTO> getAdvertDTOs(){
+    public List<AdvertDTO> getAdvertDTOs() {
         final List<AdvertDTO> advertDTOs = new ArrayList<>();
         getAdverts().forEach(advert -> advertDTOs.add(new AdvertDTO(advert, false)));
         return advertDTOs;
